@@ -44,4 +44,5 @@ public class ResposeData {
     public void setData(Object data) {
         this.data = data;
     }
+
 }
