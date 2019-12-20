@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface IStudentDao {
 
-    List<Student> getStudentBySID(int sid);
+    Student getStudentBySID(int sid);
+
+    List<Student> getStudents(Student student);
 
 }

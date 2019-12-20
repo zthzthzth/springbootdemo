@@ -10,8 +10,21 @@
         <result column="remark" property="remark" javaType="java.lang.String"/>
     </resultMap>
 
+    <sql id="studentInfo">
+        sid, sname, sname_pinyin, age, remark
+    </sql>
+
     <select id="getStudentBySID" resultMap="row">
-        select * from t_student where sid=#{sid}
+        select <include refid="studentInfo"/> from t_student where sid=#{sid}
+    </select>
+
+    <select id="getStudents" resultType="com.zking.springbootdemo.model.Student">
+        select <include refid="studentInfo"/> from t_student
+        <where>
+            <if test="sname != null and sname != ''">
+                and sname like concat('%', #{sname}, '%')
+            </if>
+        </where>
     </select>
 
 </mapper>

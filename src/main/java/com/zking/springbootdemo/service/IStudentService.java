@@ -1,6 +1,7 @@
 package com.zking.springbootdemo.service;
 
 import com.zking.springbootdemo.model.Student;
+import com.zking.springbootdemo.util.PageBean;
 
 import java.util.List;
 
@@ -10,6 +11,9 @@ import java.util.List;
  */
 public interface IStudentService {
 
-    List<Student> getStudentBySID(int sid);
+    Student getStudentBySID(int sid);
+
+
+    List<Student> getStudentsPaging(Student student, PageBean pageBean);
 
 }

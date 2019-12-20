@@ -1,12 +1,16 @@
 package com.zking.springbootdemo.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Administrator
  * @create 2019-12-1618:26
  */
-public class Student {
+public class Student implements Serializable {
+
+    private static final long serialVersionUID = -2620096301912893872L;
+
     private int sid;
     private String sname;
     private Integer age;

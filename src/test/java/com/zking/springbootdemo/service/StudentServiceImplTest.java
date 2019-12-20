@@ -2,6 +2,7 @@ package com.zking.springbootdemo.service;
 
 import com.zking.springbootdemo.SpringbootdemoApplication;
 import com.zking.springbootdemo.model.Student;
+import com.zking.springbootdemo.util.PageBean;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +27,19 @@ class StudentServiceImplTest {
 
     @Test
     void getStudentBySID() {
-        List<Student> lst = studentService.getStudentBySID(6);
-        System.out.println(lst.get(0));
+        Student student = studentService.getStudentBySID(8);
+        System.out.println(student);
+    }
+
+    @Test
+    void getStudentsPaging() {
+        Student stu = new Student();
+        PageBean pageBean = new PageBean();
+        pageBean.setRows(3);
+        List<Student> datas = studentService.getStudentsPaging(stu, pageBean);
+        for(Student student:  datas) {
+            System.out.println(student);
+        }
     }
 
 }
