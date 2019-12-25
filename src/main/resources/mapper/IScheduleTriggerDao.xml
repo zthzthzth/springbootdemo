@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.springbootdemo.dao.IScheduleTriggerDao">
+
+    <resultMap id="row" type="com.zking.springbootdemo.model.ScheduleTrigger">
+        <id column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="cron" property="cron" javaType="java.lang.String"/>
+        <result column="status" property="status" javaType="java.lang.String"/>
+        <result column="job_name" property="jobName" javaType="java.lang.String"/>
+        <result column="job_group" property="jobGroup" javaType="java.lang.String"/>
+        <collection property="paramList" ofType="com.zking.springbootdemo.model.ScheduleTriggerParam">
+            <result column="name" property="name" javaType="java.lang.String"/>
+            <result column="value" property="value" javaType="java.lang.String"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      t1.id, t1.cron, t1.status, t1.job_name, t1.job_group, t2.name, t2.value
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="row" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_schedule_trigger t1
+            inner join t_schedule_trigger_param t2 on t1.id = t2.schedule_trigger_id
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryAll" resultMap="row">
+        select
+        <include refid="Base_Column_List"/>
+        from t_schedule_trigger t1
+          inner join t_schedule_trigger_param t2 on t1.id = t2.schedule_trigger_id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_schedule_trigger
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.zking.springbootdemo.model.ScheduleTrigger" useGeneratedKeys="true" keyProperty="id">
+      insert into t_schedule_trigger (id, cron, status,job_name, job_group)
+      values (#{id,jdbcType=INTEGER}, #{cron,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+      #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zking.springbootdemo.model.ScheduleTrigger">
+        insert into t_schedule_trigger
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cron != null">
+                cron,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="jobName != null">
+                job_name,
+            </if>
+            <if test="jobGroup != null">
+                job_group,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="cron != null">
+                #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="jobName != null">
+                #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                #{jobGroup,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zking.springbootdemo.model.ScheduleTrigger">
+        update t_schedule_trigger
+        <set>
+            <if test="cron != null">
+                cron = #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="jobName != null">
+                job_name = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                job_group = #{jobGroup,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zking.springbootdemo.model.ScheduleTrigger">
+        update t_schedule_trigger
+        set cron = #{cron,jdbcType=VARCHAR},
+          status = #{status,jdbcType=CHAR},
+          job_name = #{jobName,jdbcType=VARCHAR},
+          job_group = #{jobGroup,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

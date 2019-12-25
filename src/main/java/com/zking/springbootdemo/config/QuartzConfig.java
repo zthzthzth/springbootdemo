@@ -3,8 +3,6 @@ package com.zking.springbootdemo.config;
 import com.zking.springbootdemo.job.IntegrationQzJob;
 import com.zking.springbootdemo.job.IntegrationQzJob2;
 import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 配置quartz的job
@@ -12,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @author Administrator
  * @create 2019-12-2222:19
  */
-@Configuration
+//@Configuration
 public class QuartzConfig {
 
 
-    @Bean
+    //@Bean
     public JobDetail printTimeJobDetail(){
         return JobBuilder.newJob(IntegrationQzJob.class)//PrintTimeJob我们的业务类
                 .withIdentity("PrintTimeJob")//可以给该JobDetail起一个id
@@ -27,7 +25,7 @@ public class QuartzConfig {
     }
 
 
-    @Bean
+    //@Bean
     public Trigger printTimeJobTrigger() {
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0 0/1 * * * ?");
         return TriggerBuilder.newTrigger()
@@ -38,7 +36,7 @@ public class QuartzConfig {
     }
 
 
-    @Bean
+    //@Bean
     public JobDetail printTimeJobDetail2() {
         return JobBuilder.newJob(IntegrationQzJob2.class)//PrintTimeJob我们的业务类
                 .withIdentity("PrintTimeJob2")//可以给该JobDetail起一个id
@@ -49,7 +47,7 @@ public class QuartzConfig {
     }
 
 
-    @Bean
+    //@Bean
     public Trigger printTimeJobTrigger2() {
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/30 * * * * ?");
         return TriggerBuilder.newTrigger()
